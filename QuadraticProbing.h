@@ -28,7 +28,7 @@ public:
     makeEmpty();
   }
 
-  bool contains(const HashedObj &x) const { return isActive(findPos(x)); }
+  bool contains(const HashedObj &x) { return isActive(findPos(x)); }
 
   void makeEmpty() {
     currentSize = 0;
@@ -36,17 +36,23 @@ public:
       entry.info = EMPTY;
   }
 
-  void insertArray(Vector<HashedObj> objArray) {
-      
+  bool insertArray(std::vector<HashedObj> inArray) {
+
+    typename vector<HashedObj>::iterator iter = inArray.begin();
+    while (iter != inArray.end()) {
+      insert(*iter);
+      iter++;
+    }
   }
 
   bool insert(const HashedObj &x) {
-        clock_t start=clock();
+    clock_t start = clock();
     // Insert x as active
     int currentPos = findPos(x);
-    if (isActive(currentPos))
+    if (isActive(currentPos)) {
       return false;
-
+      elapsedTime += clock() - start;
+    }
     if (array[currentPos].info != DELETED)
       ++currentSize;
 
@@ -56,18 +62,18 @@ public:
     // Rehash; see Section 5.5
     if (currentSize > array.size() / 2)
       rehash();
-    clock_t end=clock();
-    elapsedTime += (end - start);
+    elapsedTime += clock() - start;
     return true;
-
   }
 
   bool insert(HashedObj &&x) {
-
+    clock_t start = clock();
     // Insert x as active
     int currentPos = findPos(x);
-    if (isActive(currentPos))
+    if (isActive(currentPos)) {
+      elapsedTime += clock() - start;
       return false;
+    }
 
     if (array[currentPos].info != DELETED)
       ++currentSize;
@@ -78,7 +84,7 @@ public:
     // Rehash; see Section 5.5
     if (currentSize > array.size() / 2)
       rehash();
-
+    elapsedTime += clock() - start;
     return true;
   }
 
@@ -90,6 +96,14 @@ public:
     array[currentPos].info = DELETED;
     return true;
   }
+
+  int getCurrentSize() { return currentSize; }
+
+  double getElapsedTime() { return elapsedTime; }
+
+  int getCollisions() { return collisions; }
+
+  int getUnsuccessfulProbes() { return unsuccessfulProbes; }
 
   enum EntryType { ACTIVE, EMPTY, DELETED };
 
@@ -108,22 +122,25 @@ private:
   vector<HashEntry> array;
   int currentSize;
   int collisions;
+  int unsuccessfulProbes;
   double elapsedTime;
 
   bool isActive(int currentPos) const {
     return array[currentPos].info == ACTIVE;
   }
 
-  int findPos(const HashedObj &x) const {
+  int findPos(const HashedObj &x) {
     int offset = 1;
     int currentPos = myhash(x);
-
+    if (array[currentPos].info != EMPTY && array[currentPos].element != x) {
+      collisions++;
+    }
     while (array[currentPos].info != EMPTY && array[currentPos].element != x) {
       currentPos += offset; // Compute ith probe
       offset += 2;
       if (currentPos >= array.size())
         currentPos -= array.size();
-      collisions++;
+      unsuccessfulProbes++;
     }
 
     return currentPos;

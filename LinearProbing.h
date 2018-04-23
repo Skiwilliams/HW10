@@ -1,7 +1,8 @@
-#ifndef QUADRATIC_PROBING_H
-#define QUADRATIC_PROBING_H
+#ifndef LINEAR_PROBING_H
+#define LINEAR_PROBING_H
 
 #include <algorithm>
+#include <ctime>
 #include <functional>
 #include <string>
 #include <utility>
@@ -21,6 +22,7 @@ int nextPrime(int n);
 // void makeEmpty( )      --> Remove all items
 // int hashCode( string str ) --> Global method to hash strings
 
+<<<<<<< HEAD
 template <typename HashedObj> class LinearProbing {
 public:
   explicit LinearProbing(int size = 101) : array(nextPrime(size)) {
@@ -71,12 +73,47 @@ public:
     if (array[currentPos].info != DELETED)
       ++currentSize;
 
+=======
+template <typename HashedObj> class LinearHashTable {
+public:
+  explicit LinearHashTable(int size = 101) : array(nextPrime(size)) { makeEmpty(); }
+
+  bool contains(const HashedObj &x) { return isActive(findPos(x)); }
+
+  void makeEmpty() {
+    currentSize = 0;
+    for (auto &entry : array)
+      entry.info = EMPTY;
+  }
+
+  bool insertArray(std::vector<HashedObj> inArray) {
+    typename vector<HashedObj>::iterator iter = inArray.begin();
+    while (iter != inArray.end()) {
+      insert(*iter);
+      iter++;
+    }
+  }
+
+  bool insert(const HashedObj &x) {
+    clock_t start = clock();
+    // Insert x as active
+    int currentPos = findPos(x);
+    if (isActive(currentPos)) {
+      elapsedTime += clock() - start;
+      return false;
+    }
+
+    if (array[currentPos].info != DELETED)
+      ++currentSize;
+
+>>>>>>> 382775fb48a5d023761f12adc741d8884539ccca
     array[currentPos] = std::move(x);
     array[currentPos].info = ACTIVE;
 
     // Rehash; see Section 5.5
     if (currentSize > array.size() / 2)
       rehash();
+<<<<<<< HEAD
 
     return true;
   }
@@ -86,10 +123,44 @@ public:
     if (!isActive(currentPos))
       return false;
 
+=======
+    elapsedTime += clock() - start;
+    return true;
+  }
+
+  bool insert(HashedObj &&x) {
+    clock_t start = clock();
+    // Insert x as active
+    int currentPos = findPos(x);
+    if (isActive(currentPos)) {
+      elapsedTime += clock() - start;
+      return false;
+    }
+
+    if (array[currentPos].info != DELETED)
+      ++currentSize;
+
+    array[currentPos] = std::move(x);
+    array[currentPos].info = ACTIVE;
+
+    // Rehash; see Section 5.5
+    if (currentSize > array.size() / 2)
+      rehash();
+    elapsedTime += clock() - start;
+    return true;
+  }
+
+  bool remove(const HashedObj &x) {
+    int currentPos = findPos(x);
+    if (!isActive(currentPos))
+      return false;
+
+>>>>>>> 382775fb48a5d023761f12adc741d8884539ccca
     array[currentPos].info = DELETED;
     return true;
   }
 
+<<<<<<< HEAD
   enum EntryType { ACTIVE, EMPTY, DELETED };
 
 private:
@@ -139,6 +210,83 @@ private:
         insert(std::move(entry.element));
   }
 
+=======
+  int getCurrentSize()
+  {
+      return currentSize;
+  }
+  
+  double getElapsedTime()
+  {
+      return elapsedTime;
+  }
+
+  int getCollisions()
+  {
+      return collisions;
+  }
+
+  int getUnsuccessfulProbes()
+  {
+      return unsuccessfulProbes;
+  }
+
+  enum EntryType { ACTIVE, EMPTY, DELETED };
+
+private:
+  struct HashEntry {
+    HashedObj element;
+    EntryType info;
+
+    HashEntry(const HashedObj &e = HashedObj{}, EntryType i = EMPTY)
+        : element{e}, info{i} {}
+
+    HashEntry(HashedObj &&e, EntryType i = EMPTY)
+        : element{std::move(e)}, info{i} {}
+  };
+
+  vector<HashEntry> array;
+  int currentSize;
+  int collisions;
+  int unsuccessfulProbes;
+  double elapsedTime;
+
+  bool isActive(int currentPos) const {
+    return array[currentPos].info == ACTIVE;
+  }
+
+  int findPos(const HashedObj &x)  {
+    int offset = 1;
+    int currentPos = myhash(x);
+
+    if(array[currentPos].info != EMPTY && array[currentPos].element != x)
+      collisions++;
+    while (array[currentPos].info != EMPTY && array[currentPos].element != x) {
+      currentPos += offset; // Compute ith probe
+      if (currentPos >= array.size())
+        currentPos -= array.size();
+      unsuccessfulProbes++;
+    }
+
+    return currentPos;
+  }
+
+  void rehash() {
+    vector<HashEntry> oldArray = array;
+
+    // Create new double-sized, empty table
+    array.resize(nextPrime(2 * oldArray.size()));
+    for (auto &entry : array)
+      entry.info = EMPTY;
+
+    // Copy table over
+    currentSize = 0;
+    for (auto &entry : oldArray)
+      if (entry.info == ACTIVE)
+        insert(std::move(entry.element));
+  }
+
+>>>>>>> 382775fb48a5d023761f12adc741d8884539ccca
   size_t myhash(const HashedObj &x) const {
     static hash<HashedObj> hf;
     return hf(x) % array.size();

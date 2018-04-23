@@ -1,15 +1,15 @@
 #ifndef SEPARATE_CHAINING_H
 #define SEPARATE_CHAINING_H
 
-#include <vector>
+#include <algorithm>
+#include <ctime>
+#include <functional>
 #include <list>
 #include <string>
-#include <algorithm>
-#include <functional>
+#include <vector>
 using namespace std;
 
-
-int nextPrime( int n );
+int nextPrime(int n);
 
 // SeparateChaining Hash table class
 //
@@ -21,92 +21,110 @@ int nextPrime( int n );
 // bool contains( x )     --> Return true if x is present
 // void makeEmpty( )      --> Remove all items
 
-template <typename HashedObj>
-class HashTable
-{
-  public:
-    explicit HashTable( int size = 101 ) : currentSize{ 0 }
-      { theLists.resize( 101 ); }
+template <typename HashedObj> class SeperateHashTable {
+public:
+  explicit SeperateHashTable(int size = 101) : currentSize{0} {
+    theLists.resize(101);
+  }
 
-    bool contains( const HashedObj & x ) const
-    {
-        auto & whichList = theLists[ myhash( x ) ];
-        return find( begin( whichList ), end( whichList ), x ) != end( whichList );
+  bool contains(const HashedObj &x) const {
+    auto &whichList = theLists[myhash(x)];
+    return find(begin(whichList), end(whichList), x) != end(whichList);
+  }
+
+  void makeEmpty() {
+    for (auto &thisList : theLists)
+      thisList.clear();
+  }
+
+  void insertArray(std::vector<HashedObj> inArray) {
+
+    typename vector<HashedObj>::iterator iter = inArray.begin();
+    while (iter != inArray.end()) {
+      insert(*iter);
+      iter++;
     }
+  }
 
-    void makeEmpty( )
-    {
-        for( auto & thisList : theLists )
-            thisList.clear( );
+  bool insert(const HashedObj &x) {
+    clock_t start = clock();
+    auto &whichList = theLists[myhash(x)];
+    if (find(begin(whichList), end(whichList), x) != end(whichList)) {
+      elapsedTime += clock() - start;
+      return false;
     }
+    if (!whichList.empty())
+      collisions++;
+    whichList.push_back(x);
 
-    bool insert( const HashedObj & x )
-    {
-        auto & whichList = theLists[ myhash( x ) ];
-        if( find( begin( whichList ), end( whichList ), x ) != end( whichList) )
-            return false;
-        whichList.push_back( x );
+    // Rehash; see Section 5.5
+    if (++currentSize > theLists.size())
+      rehash();
+    elapsedTime += clock() - start;
+    return true;
+  }
 
-            // Rehash; see Section 5.5
-        if( ++currentSize > theLists.size( ) )
-            rehash( );
-
-        return true;
+  bool insert(HashedObj &&x) {
+    clock_t start = clock();
+    auto &whichList = theLists[myhash(x)];
+    if (find(begin(whichList), end(whichList), x) != end(whichList)) {
+      elapsedTime += clock() - start;
+      return false;
     }
-    
-    bool insert( HashedObj && x )
-    {
-        auto & whichList = theLists[ myhash( x ) ];      
-        if( find( begin( whichList ), end( whichList ), x ) != end( whichList ) )
-            return false;
-        whichList.push_back( std::move( x ) );
+    if (!whichList.empty())
+      collisions++;
+    whichList.push_back(x);
 
-            // Rehash; see Section 5.5
-        if( ++currentSize > theLists.size( ) )
-            rehash( );
+    // Rehash; see Section 5.5
+    if (++currentSize > theLists.size())
+      rehash();
+    elapsedTime += clock() - start;
+    return true;
+  }
 
-        return true;
-    }
+  bool remove(const HashedObj &x) {
+    auto &whichList = theLists[myhash(x)];
+    auto itr = find(begin(whichList), end(whichList), x);
 
-    bool remove( const HashedObj & x )
-    {
-        auto & whichList = theLists[ myhash( x ) ];
-        auto itr = find( begin( whichList ), end( whichList ), x );
+    if (itr == end(whichList))
+      return false;
 
-        if( itr == end( whichList ) )
-            return false;
+    whichList.erase(itr);
+    --currentSize;
+    return true;
+  }
 
-        whichList.erase( itr );
-        --currentSize;
-        return true;
-    }
+  int getCurrentSize() { return currentSize; }
 
-  private:
-    vector<list<HashedObj>> theLists;   // The array of Lists
-    int  currentSize;
+  double getElapsedTime() { return elapsedTime; }
 
-    void rehash( )
-    {
-        vector<list<HashedObj>> oldLists = theLists;
+  int getCollisions() { return collisions; }
 
-            // Create new double-sized, empty table
-        theLists.resize( nextPrime( 2 * theLists.size( ) ) );
-        for( auto & thisList : theLists )
-            thisList.clear( );
+private:
+  vector<list<HashedObj>> theLists; // The array of Lists
+  int currentSize;
+  int collisions;
+  double elapsedTime;
 
-            // Copy table over
-        currentSize = 0;
-        for( auto & thisList : oldLists )
-            for( auto & x : thisList )
-                insert( std::move( x ) );
-    }
+  void rehash() {
+    vector<list<HashedObj>> oldLists = theLists;
 
-    size_t myhash( const HashedObj & x ) const
-    {
-        static hash<HashedObj> hf;
-        return hf( x ) % theLists.size( );
-    }
+    // Create new double-sized, empty table
+    theLists.resize(nextPrime(2 * theLists.size()));
+    for (auto &thisList : theLists)
+      thisList.clear();
+
+    // Copy table over
+    currentSize = 0;
+    for (auto &thisList : oldLists)
+      for (auto &x : thisList)
+        insert(std::move(x));
+  }
+
+  size_t myhash(const HashedObj &x) const {
+    static hash<HashedObj> hf;
+    return hf(x) % theLists.size();
+  }
 };
 
 #endif
-
