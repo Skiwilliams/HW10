@@ -24,6 +24,8 @@ int nextPrime(int n);
 template <typename HashedObj> class SeperateHashTable {
 public:
   explicit SeperateHashTable(int size = 101) : currentSize{0} {
+    collisions = 0;
+    elapsedTime = 0;
     theLists.resize(101);
   }
 
@@ -37,10 +39,9 @@ public:
       thisList.clear();
   }
 
-  void insertArray(std::vector<HashedObj> inArray) {
-
-    typename vector<HashedObj>::iterator iter = inArray.begin();
-    while (iter != inArray.end()) {
+  bool insertArray(std::vector<HashedObj> *inArray) {
+    typename vector<HashedObj>::iterator iter = inArray->begin();\
+    while (iter != inArray->end()) {
       insert(*iter);
       iter++;
     }
@@ -96,7 +97,7 @@ public:
 
   int getCurrentSize() { return currentSize; }
 
-  double getElapsedTime() { return elapsedTime; }
+  int getElapsedTime() { return elapsedTime; }
 
   int getCollisions() { return collisions; }
 
@@ -104,7 +105,7 @@ private:
   vector<list<HashedObj>> theLists; // The array of Lists
   int currentSize;
   int collisions;
-  double elapsedTime;
+  int elapsedTime;
 
   void rehash() {
     vector<list<HashedObj>> oldLists = theLists;

@@ -39,14 +39,14 @@ public:
       entry.info = EMPTY;
   }
 
-  bool insertArray(std::vector<HashedObj> inArray) {
-
-    typename vector<HashedObj>::iterator iter = inArray.begin();
-    while (iter != inArray.end()) {
+  bool insertArray(std::vector<HashedObj> *inArray) {
+    typename vector<HashedObj>::iterator iter = inArray->begin();
+    while (iter != inArray->end()) {
       insert(*iter);
       iter++;
     }
   }
+
 
   bool insert(const HashedObj &x) {
     clock_t start = clock();
