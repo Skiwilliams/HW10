@@ -27,7 +27,7 @@ void getSomeWords(std::vector<std::string> *OhenryArray) {
   }
 }
 
-void getSomeWords(std::vector<std::string> *OhenryArray) {
+void getSomeWordsQuery(std::vector<std::string> *OhenryArray) {
   std::string inname = "";
   std::ifstream fin;
   fin.open("OHenry.txt");

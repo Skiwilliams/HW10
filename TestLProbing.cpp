@@ -16,7 +16,7 @@ int main() {
     std::cout << "hello " << *it << endl;
   }
 
-  LinearProbing<string> h1;
+  LinearHashTable<string> h1;
   h1.insertArray(&OhenryArray);
 
   /*

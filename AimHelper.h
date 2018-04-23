@@ -11,6 +11,7 @@
 using namespace std;
 
 void getSomeWords(std::vector<string> *OhenryArray);
+void getSomeWordsQuery(std::vector<string> *OhenryArray);
 /*
   inserts words into DataArray no duplicate words are allowed
 */
