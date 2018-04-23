@@ -1,4 +1,4 @@
-#include "QuadraticProbing.h"
+#include "LinearProbing.h"
 #include <iostream>
 using namespace std;
 

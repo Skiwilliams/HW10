@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <functional>
 #include <string>
+#include <utility>
 using namespace std;
 
 int nextPrime( int n );
@@ -37,6 +38,16 @@ class HashTable
         currentSize = 0;
         for( auto & entry : array )
             entry.info = EMPTY;
+    }
+
+    bool insertArray(std::vector<HashedObj> inArray)
+    {
+        typename vector<HashedObj>::iterator iter = inArray.begin();
+        while(iter != inArray.end())
+        {
+            insert(*iter);
+            iter++;
+        }
     }
 
     bool insert( const HashedObj & x )
@@ -119,7 +130,6 @@ class HashTable
                array[ currentPos ].element != x )
         {
             currentPos += offset;  // Compute ith probe
-            offset += 2;
             if( currentPos >= array.size( ) )
                 currentPos -= array.size( );
         }
