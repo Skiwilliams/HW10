@@ -32,6 +32,9 @@ public:
 
   void makeEmpty() {
     currentSize = 0;
+    collisions = 0;
+    unsuccessfulProbes = 0;
+    elapsedTime = 0;
     for (auto &entry : array)
       entry.info = EMPTY;
   }

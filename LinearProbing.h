@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <ctime>
 #include <functional>
+#include <iostream>
 #include <string>
 #include <utility>
 #include <vector>
@@ -32,6 +33,9 @@ public:
 
   void makeEmpty() {
     currentSize = 0;
+    collisions = 0;
+    unsuccessfulProbes = 0;
+    elapsedTime = 0;
     for (auto &entry : array)
       entry.info = EMPTY;
   }

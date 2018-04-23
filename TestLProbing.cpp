@@ -18,7 +18,9 @@ int main() {
 
   LinearHashTable<string> h1;
   h1.insertArray(&OhenryArray);
-
+  cout << h1.getElapsedTime() << " elapsed time" << endl;
+  cout << h1.getCollisions() << " collisions" << endl;
+  cout << h1.getUnsuccessfulProbes() << " #unsuccessfulProbes" << endl;
   /*
       h2 = h1;
 
