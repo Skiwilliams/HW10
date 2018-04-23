@@ -32,18 +32,21 @@ public:
 
   void makeEmpty() {
     currentSize = 0;
+    collisions = 0;
+    unsuccessfulProbes = 0;
+    elapsedTime = 0;
     for (auto &entry : array)
       entry.info = EMPTY;
   }
 
-  bool insertArray(std::vector<HashedObj> inArray) {
-
-    typename vector<HashedObj>::iterator iter = inArray.begin();
-    while (iter != inArray.end()) {
+  bool insertArray(std::vector<HashedObj> *inArray) {
+    typename vector<HashedObj>::iterator iter = inArray->begin();
+    while (iter != inArray->end()) {
       insert(*iter);
       iter++;
     }
   }
+
 
   bool insert(const HashedObj &x) {
     clock_t start = clock();
