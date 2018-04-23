@@ -1,5 +1,5 @@
 #include <iostream>
-#include "QuadraticProbing.h"
+#include "LinearProbing.h"
 using namespace std;
 
     // Simple main
