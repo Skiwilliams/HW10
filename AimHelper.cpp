@@ -17,25 +17,17 @@ using namespace std;
 /*
   inserts words into DataArray no duplicate words are allowed
 */
-void getSomeWords(std::vector<std::string> *OhenryArray) {
+void fileToArray(string fileName, std::vector<std::string> *StringArray) {
   std::string inname = "";
   std::ifstream fin;
-  fin.open("OHenry.txt");
+  fin.open(fileName);
   while (!fin.eof()) {
     std::getline(fin, inname);
-    OhenryArray->push_back(inname);
+    StringArray->push_back(inname);
   }
 }
 
-void getSomeWordsQuery(std::vector<std::string> *OhenryArray) {
-  std::string inname = "";
-  std::ifstream fin;
-  fin.open("OHenry.txt");
-  while (!fin.eof()) {
-    std::getline(fin, inname);
-    OhenryArray->push_back(inname);
-  }
-}
+
 
 /*
   private member holds the sum of times taken for all insertions
