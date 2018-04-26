@@ -1,7 +1,7 @@
-#include <iostream>
+#include "LinearProbing.h"
 #include "QuadraticProbing.h"
 #include "SeparateChaining.h"
-#include "LinearProbing.h"
+#include <iostream>
 
 using namespace std;
 
@@ -100,4 +100,3 @@ int main( )
 
     return 0;
 }
-
