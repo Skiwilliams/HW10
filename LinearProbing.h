@@ -8,8 +8,10 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include "HashHelpers.h"
 using namespace std;
 
+bool isPrime(int n);
 int nextPrime(int n);
 
 // QuadraticProbing Hash table class
