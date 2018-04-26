@@ -12,6 +12,13 @@ using namespace std;
 
 void getSomeWords(std::vector<string> *OhenryArray);
 void getSomeWordsQuery(std::vector<string> *OhenryArray);
+int searchByQueryQ(std::vector<std::string> *queryArray,
+                   QuadraticHashTable<string> *h1);
+int searchByQueryL(std::vector<std::string> *queryArray,
+                   LinearHashTable<string> *h1);
+
+int searchByQueryC(std::vector<std::string> *queryArray,
+                   ChainingHashTable<string> *h1);
 /*
   inserts words into DataArray no duplicate words are allowed
 */

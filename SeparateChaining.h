@@ -21,9 +21,9 @@ int nextPrime(int n);
 // bool contains( x )     --> Return true if x is present
 // void makeEmpty( )      --> Remove all items
 
-template <typename HashedObj> class SeperateHashTable {
+template <typename HashedObj> class ChainingHashTable {
 public:
-  explicit SeperateHashTable(int size = 101) : currentSize{0} {
+  explicit ChainingHashTable(int size = 101) : currentSize{0} {
     collisions = 0;
     elapsedTime = 0;
     theLists.resize(101);
@@ -40,7 +40,7 @@ public:
   }
 
   bool insertArray(std::vector<HashedObj> *inArray) {
-    typename vector<HashedObj>::iterator iter = inArray->begin();\
+    typename vector<HashedObj>::iterator iter = inArray->begin();
     while (iter != inArray->end()) {
       insert(*iter);
       iter++;

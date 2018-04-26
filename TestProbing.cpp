@@ -1,3 +1,4 @@
+#include "AimHelper.h"
 #include "LinearProbing.h"
 #include "QuadraticProbing.h"
 #include "SeparateChaining.h"
@@ -5,98 +6,34 @@
 
 using namespace std;
 
-    // Simple main
-int main( )
-{
-    QuadraticHashTable<int> h1;
-    QuadraticHashTable<int> h2;
-    LinearHashTable<int> h3;
-    LinearHashTable<int> h4;
-    SeperateHashTable<int> h5;
-    SeperateHashTable<int> h6;
+// Simple main
+int main() {
+  QuadraticHashTable<string> h1;
+  LinearHashTable<string> h3;
+  ChainingHashTable<string> h5;
 
-    const int NUMS = 500;
-    const int GAP  =   37;
-    vector<int> testArray= {1001, 1002, 1003, 1004, 1005};
-    int i;
-    
-    cout << "Checking... (no more output means success)" << endl;
+  vector<string> testArray;
+  getSomeWords(&testArray);
 
-    for( i = GAP; i != 0; i = ( i + GAP ) % NUMS )
-        h1.insert( i );
-    
-    h2 = h1;
-    
-    for( i = 1; i < NUMS; i += 2 )
-        h2.remove( i );
-    
-    for( i = 2; i < NUMS; i += 2 )
-        if( !h2.contains( i ) )
-            cout << "Contains fails " << i << endl;
+  vector<string> queryArray;
+  getSomeWordsQuery(&queryArray);
 
-    for( i = 1; i < NUMS; i += 2 )
-    {
-        if( h2.contains( i ) )
-            cout << "OOPS!!! " <<  i << endl;
-    }
-    
+  h1.insertArray(&testArray);
 
-    h1.insertArray(&testArray);
-    
+  cout << "\nElapsedTime " << h1.getElapsedTime() << endl;
+  cout << "Collisions " << h1.getCollisions() << endl;
+  cout << "#UnsuccessfulProbes " << h1.getUnsuccessfulProbes() << endl;
+  cout << "We found " << searchByQueryQ(&queryArray, &h1) << endl;
 
-    cout<< h1.getElapsedTime() <<endl;
-    cout<< h1.getCollisions() <<endl;
-    cout<< h1.getUnsuccessfulProbes() <<endl;
+  h3.insertArray(&testArray);
+  cout << "\nElapsedTime " << h3.getElapsedTime() << endl;
+  cout << "Collisions " << h3.getCollisions() << endl;
+  cout << "#UnsuccessfulProbes " << h3.getUnsuccessfulProbes() << endl;
 
-      for( i = GAP; i != 0; i = ( i + GAP ) % NUMS )
-        h3.insert( i );
-    
-    h4 = h3;
+  h5.insertArray(&testArray);
 
-    
-    for( i = 1; i < NUMS; i += 2 )
-        h4.remove( i );
+  cout << "\nElapsedTime " << h5.getElapsedTime() << endl;
+  cout << "Collisions " << h5.getCollisions() << endl;
 
-    for( i = 2; i < NUMS; i += 2 )
-        if( !h4.contains( i ) )
-            cout << "Contains fails " << i << endl;
-
-    for( i = 1; i < NUMS; i += 2 )
-    {
-        if( h4.contains( i ) )
-            cout << "OOPS!!! " <<  i << endl;
-    }
-    
-    
-
-    h3.insertArray(&testArray);
-    cout<< h3.getElapsedTime() <<endl;
-    cout<< h3.getCollisions() <<endl;
-    cout<< h3.getUnsuccessfulProbes() <<endl;
-
-  for( i = GAP; i != 0; i = ( i + GAP ) % NUMS )
-        h5.insert( i );
-    
-    h6 = h5;
-    
-    for( i = 1; i < NUMS; i += 2 )
-        h6.remove( i );
-
-    for( i = 2; i < NUMS; i += 2 )
-        if( !h6.contains( i ) )
-            cout << "Contains fails " << i << endl;
-
-    for( i = 1; i < NUMS; i += 2 )
-    {
-        if( h6.contains( i ) )
-            cout << "OOPS!!! " <<  i << endl;
-    }
-    
-    h5.insertArray(&testArray);
-
-    cout<< h5.getElapsedTime() <<endl;
-    cout<< h5.getCollisions() <<endl;
-
-
-    return 0;
+  return 0;
 }

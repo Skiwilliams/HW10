@@ -12,6 +12,11 @@
 #include <sstream>
 #include <string>
 #include <vector>
+
+#include "LinearProbing.h"
+#include "QuadraticProbing.h"
+#include "SeparateChaining.h"
+
 using namespace std;
 
 /*
@@ -30,11 +35,44 @@ void getSomeWords(std::vector<std::string> *OhenryArray) {
 void getSomeWordsQuery(std::vector<std::string> *OhenryArray) {
   std::string inname = "";
   std::ifstream fin;
-  fin.open("OHenry.txt");
+  fin.open("queries.txt");
   while (!fin.eof()) {
     std::getline(fin, inname);
     OhenryArray->push_back(inname);
   }
+}
+
+int searchByQueryQ(std::vector<std::string> *queryArray,
+                   QuadraticHashTable<string> *h1) {
+  int queriesFound = 0;
+  for (std::vector<string>::iterator iter = queryArray->begin();
+       iter != queryArray->end(); iter++) {
+    queriesFound += h1.contains(iter->data());
+    iter++;
+  }
+  return queriesFound;
+}
+
+int searchByQueryL(std::vector<std::string> *queryArray,
+                   LinearHashTable<string> *h1) {
+  int queriesFound = 0;
+  for (std::vector<string>::iterator iter = queryArray->begin();
+       iter != queryArray->end(); iter++) {
+    queriesFound += h1.contains(iter->data());
+    iter++;
+  }
+  return queriesFound;
+}
+
+int searchByQueryC(std::vector<std::string> *queryArray,
+                   ChainingHashTable<string> *h1) {
+  int queriesFound = 0;
+  for (std::vector<string>::iterator iter = queryArray->begin();
+       iter != queryArray->end(); iter++) {
+    queriesFound += h1->contains(iter->data());
+    iter++;
+  }
+  return queriesFound;
 }
 
 /*
