@@ -1,7 +1,6 @@
 #include "LinearProbing.h"
 #include <iostream>
 using namespace std;
-
 /**
  * Internal method to test if a positive number is prime.
  * Not an efficient algorithm.
