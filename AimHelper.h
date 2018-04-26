@@ -11,7 +11,6 @@
 #include <string>
 using namespace std;
 
-<<<<<<< HEAD
 void getSomeWords(std::vector<string> *OhenryArray);
 void getSomeWordsQuery(std::vector<string> *OhenryArray);
 int searchByQueryQ(std::vector<std::string> *queryArray,
@@ -21,9 +20,6 @@ int searchByQueryL(std::vector<std::string> *queryArray,
 
 int searchByQueryC(std::vector<std::string> *queryArray,
                    ChainingHashTable<string> *h1);
-=======
-void fileToArray(string fileName, std::vector<string> *OhenryArray);
->>>>>>> 76eac7ee0a8a94acebf24479e01fce07c43b222e
 /*
   inserts words into DataArray no duplicate words are allowed
 */

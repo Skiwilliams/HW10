@@ -32,7 +32,6 @@ void fileToArray(string fileName, std::vector<std::string> *StringArray) {
   }
 }
 
-<<<<<<< HEAD
 void getSomeWordsQuery(std::vector<std::string> *OhenryArray) {
   std::string inname = "";
   std::ifstream fin;
@@ -42,9 +41,6 @@ void getSomeWordsQuery(std::vector<std::string> *OhenryArray) {
     OhenryArray->push_back(inname);
   }
 }
-=======
-
->>>>>>> 76eac7ee0a8a94acebf24479e01fce07c43b222e
 
 int searchByQueryQ(std::vector<std::string> *queryArray,
                    QuadraticHashTable<string> *h1) {
