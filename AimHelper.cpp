@@ -22,16 +22,17 @@ using namespace std;
 /*
   inserts words into DataArray no duplicate words are allowed
 */
-void getSomeWords(std::vector<std::string> *OhenryArray) {
+void fileToArray(string fileName, std::vector<std::string> *StringArray) {
   std::string inname = "";
   std::ifstream fin;
-  fin.open("OHenry.txt");
+  fin.open(fileName);
   while (!fin.eof()) {
     std::getline(fin, inname);
-    OhenryArray->push_back(inname);
+    StringArray->push_back(inname);
   }
 }
 
+<<<<<<< HEAD
 void getSomeWordsQuery(std::vector<std::string> *OhenryArray) {
   std::string inname = "";
   std::ifstream fin;
@@ -41,6 +42,9 @@ void getSomeWordsQuery(std::vector<std::string> *OhenryArray) {
     OhenryArray->push_back(inname);
   }
 }
+=======
+
+>>>>>>> 76eac7ee0a8a94acebf24479e01fce07c43b222e
 
 int searchByQueryQ(std::vector<std::string> *queryArray,
                    QuadraticHashTable<string> *h1) {

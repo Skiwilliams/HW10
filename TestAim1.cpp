@@ -2,6 +2,7 @@
 #include "SeparateChaining.h"
 #include "QuadraticProbing.h"
 #include "LinearProbing.h"
+#include "AimHelper.h"
 
 using namespace std;
 
@@ -9,6 +10,34 @@ int main() {
   /*
     opens input file Ohenry.txt
     loads contents to vector of strings - dataArray
+  */
+  vector<string> dataArray;
+  vector<string> queryArray;
+  string fileName = "OHenry.txt";
+  fileToArray("OHenry.txt", &dataArray);
+  fileToArray("queries.txt", &queryArray);
+  SeperateHashTable<string> sHash;
+  QuadraticHashTable<string> qHash;
+  LinearHashTable<string> lHash;
+  sHash.insertArray(&dataArray);
+  qHash.insertArray(&dataArray);
+  lHash.insertArray(&dataArray);
+
+  /*
+  for(vector<string>::iterator iter = dataArray.begin(); iter < dataArray.end(); iter++)
+  {
+    cout << *iter <<endl;
+  }
+  
+  
+  cout << "\n\n\n\n\n\n" << endl;
+  
+  getchar();
+  
+  for(vector<string>::iterator iter = queryArray.begin(); iter < queryArray.end(); iter++)
+  {
+    cout << *iter << endl;
+  }
   */
   
   /*

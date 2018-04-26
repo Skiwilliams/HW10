@@ -7,9 +7,9 @@
 #include <list>
 #include <string>
 #include <vector>
+#include "HashHelpers.h"
 using namespace std;
 
-int nextPrime(int n);
 
 // SeparateChaining Hash table class
 //

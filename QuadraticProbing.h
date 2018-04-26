@@ -7,9 +7,9 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "HashHelpers.h"
 using namespace std;
 
-int nextPrime(int n);
 
 // QuadraticProbing Hash table class
 //
