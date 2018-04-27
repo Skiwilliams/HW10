@@ -35,33 +35,36 @@ void fileToArray(string fileName, std::vector<std::string> *StringArray) {
   }
 }
 
-int searchByQueryQ(std::vector<std::string> *queryArray, QuadraticHashTable<string> *h1) {
+double searchByQueryQ(std::vector<std::string> *queryArray, QuadraticHashTable<string> *h1) {
   int queriesFound = 0;
+  clock_t start = clock();  
   for (std::vector<string>::iterator iter = queryArray->begin();
        iter != queryArray->end(); iter++) {
     queriesFound += h1->contains(iter->data());
   }
-  return queriesFound;
+  return clock() - start;
 }
 
-int searchByQueryL(std::vector<std::string> *queryArray,
+double searchByQueryL(std::vector<std::string> *queryArray,
                    LinearHashTable<string> *h1) {
-  int queriesFound = 0;
+  clock_t start = clock();
   for (std::vector<string>::iterator iter = queryArray->begin();
        iter != queryArray->end(); iter++) {
-    queriesFound += h1->contains(iter->data());
+    h1->contains(iter->data());
   }
-  return queriesFound;
+  return clock() - start;
 }
 
-int searchByQueryC(std::vector<std::string> *queryArray,
+double searchByQueryC(std::vector<std::string> *queryArray,
                    ChainingHashTable<string> *h1) {
   int queriesFound = 0;
+  clock_t start = clock();
+  
   for (std::vector<string>::iterator iter = queryArray->begin();
        iter != queryArray->end(); iter++) {
     queriesFound += h1->contains(iter->data());
   }
-  return queriesFound;
+  return clock() - start;
 }
 
 /*

@@ -105,7 +105,7 @@ private:
   vector<list<HashedObj>> theLists; // The array of Lists
   int currentSize;
   int collisions;
-  int elapsedTime;
+  double elapsedTime;
 
   void rehash() {
     vector<list<HashedObj>> oldLists = theLists;

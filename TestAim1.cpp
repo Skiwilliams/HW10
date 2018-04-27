@@ -25,6 +25,7 @@ int main() {
   ChainingHashTable<string> ChainingHT;
   QuadraticHashTable<string> QuadraticProbingHT;
   LinearHashTable<string> LinearProbingHT;
+  double searchTime;
 
   // insert into chaining HT
   ChainingHT.insertArray(&dataArray);
@@ -35,65 +36,32 @@ int main() {
   cout << "QuadraticHT Current size:" << QuadraticProbingHT.getCurrentSize()
        << endl;
 
-<<<<<<< HEAD
   //print some stuff
   cout << "\nChaining "<<"\n";
-  cout << "Elapsed Time " << cHash.getElapsedTime() << " micro seconds\n";
-  cout << "Average Time " << cHash.getElapsedTime()/cHash.getCurrentSize() << " micro seconds\n";  
-  cout << "Collisions " << cHash.getCollisions() << "\n";
+  cout << "Elapsed Time " << ChainingHT.getElapsedTime() << " micro seconds\n";
+  cout << "Average Time " << ChainingHT.getElapsedTime()/ChainingHT.getCurrentSize() << " micro seconds\n";  
+  cout << "Collisions " << ChainingHT.getCollisions() << "\n";
    //<<"#UnsuccessfulProbes " << cHash.getUnsuccessfulProbes() << "\n"
-  cout << "We found " << searchByQueryC(&queryArray, &cHash)<< "/" << queryArray.size() << "\n"<<endl;
+searchTime=searchByQueryC(&queryArray, &ChainingHT);
+  cout << "Total time " << searchTime <<"\nAverage time per search: " << searchTime/queryArray.size() << "\n"<<endl;
+
 
   cout << "\nQuadratic Probing "<<"\n";
-  cout << "Elapsed Time " << qHash.getElapsedTime() << " micro seconds\n";
-  cout << "Average Time " << cHash.getElapsedTime()/cHash.getCurrentSize() << " micro seconds\n";    
-  cout << "Collisions " << qHash.getCollisions() << "\n";
-  cout <<"#Unsuccessful Probes " << qHash.getUnsuccessfulProbes() << "\n";
-  cout << "We found " << searchByQueryQ(&queryArray, &qHash)<< "/" << queryArray.size() << "\n"<<endl;
+  cout << "Elapsed Time " << QuadraticProbingHT.getElapsedTime() << " micro seconds\n";
+  cout << "Average Time " << QuadraticProbingHT.getElapsedTime()/QuadraticProbingHT.getCurrentSize() << " micro seconds\n";    
+  cout << "Collisions " << QuadraticProbingHT.getCollisions() << "\n";
+  cout <<"#Unsuccessful Probes " << QuadraticProbingHT.getUnsuccessfulProbes() << "\n";
+  searchTime=searchByQueryQ(&queryArray, &QuadraticProbingHT);
+    cout << "Total time " << searchTime <<"\nAverage time per search: " << searchTime/queryArray.size() << "\n"<<endl;
 
+LinearProbingHT.insertArray(&dataArray);
   cout << "\nLinear Probing "<<"\n";
-  cout << "Elapsed Time " << lHash.getElapsedTime() << " micro seconds\n";
-  cout << "Average Time " << cHash.getElapsedTime()/cHash.getCurrentSize() << " micro seconds\n";    
-  cout << "Collisions " << lHash.getCollisions() << "\n";
-  cout <<"#Unsuccessful Probes " << lHash.getUnsuccessfulProbes() << "\n";
-  cout << "We found " << searchByQueryL(&queryArray, &lHash) <<"/" << queryArray.size() << "\n"<<endl;
-=======
-  // InsertIntoLinearHT
-  LinearProbingHT.insertArray(&dataArray);
-  cout << "LinearProbingHT Current size:" << LinearProbingHT.getCurrentSize()
-       << endl;
-
-  // Chaining data
-  cout << "\nChaining " << "\n";
-  cout << "ElapsedTime " << ChainingHT.getElapsedTime() << "\n";
-  cout << "Collisions " << QuadraticProbingHT.getCollisions() << "\n";
-  cout << "Found" << searchByQueryC(&queryArray, &ChainingHT) << "/"
-       << queryArray.size() << " queries\n"
-       << endl;
-
-  //Quadratic Data
-  cout << "\nQuadratic Probing "
-       << "\n";
-  cout << "ElapsedTime " << QuadraticProbingHT.getElapsedTime() << "\n";
-  cout << "Collisions " << QuadraticProbingHT.getCollisions() << "\n";
-  cout << "#UnsuccessfulProbes " << QuadraticProbingHT.getUnsuccessfulProbes()
-       << "\n";
-  cout << "Found " << searchByQueryQ(&queryArray, &QuadraticProbingHT) << "/"
-       << queryArray.size() << " queries\n"
-       << endl;
->>>>>>> 0a8c447a8843047b7a32d46cf68374b60741fa92
-
-  //Linear Data
-  cout << "\nLinear Probing "
-       << "\n";
-  cout << "ElapsedTime " << LinearProbingHT.getElapsedTime() << "\n";
+  cout << "Elapsed Time " << LinearProbingHT.getElapsedTime() << " micro seconds\n";
+  cout << "Average Time " << LinearProbingHT.getElapsedTime()/LinearProbingHT.getCurrentSize() << " micro seconds\n";    
   cout << "Collisions " << LinearProbingHT.getCollisions() << "\n";
-  cout << "#UnsuccessfulProbes " << LinearProbingHT.getUnsuccessfulProbes()
-       << "\n";
-  cout << "Found " << searchByQueryL(&queryArray, &LinearProbingHT) << "/"
-       << queryArray.size() << " queries\n"
-       << endl;
-
+  cout <<"#Unsuccessful Probes " << LinearProbingHT.getUnsuccessfulProbes() << "\n";
+  searchTime=searchByQueryL(&queryArray, &LinearProbingHT);
+  cout << "Total time " << searchTime <<"\nAverage time per search: " << searchTime/queryArray.size() << "\n"<<endl;
 
   return 0;
 };
