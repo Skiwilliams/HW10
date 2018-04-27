@@ -28,12 +28,13 @@ int main() {
   qHash.insertArray(&dataArray);
   lHash.insertArray(&dataArray);
 
+
   //print some stuff
   cout << "\nChaining "<<"\n";
   cout << "ElapsedTime " << cHash.getElapsedTime() << "\n";
   cout << "Collisions " << cHash.getCollisions() << "\n";
    //<<"#UnsuccessfulProbes " << cHash.getUnsuccessfulProbes() << "\n"
-  //cout << "We found " << searchByQueryC(&queryArray, &cHash)<< "out of" << queryArray.size() << "\n"<<endl;
+  cout << "We found " << searchByQueryC(&queryArray, &cHash)<< "/" << queryArray.size() << "\n"<<endl;
 
   cout << "\nQuadratic Probing "<<"\n";
   cout << "ElapsedTime " << qHash.getElapsedTime() << "\n";
@@ -45,7 +46,7 @@ int main() {
   cout << "ElapsedTime " << lHash.getElapsedTime() << "\n";
   cout << "Collisions " << lHash.getCollisions() << "\n";
   cout <<"#UnsuccessfulProbes " << lHash.getUnsuccessfulProbes() << "\n";
-  //cout << "We found " << searchByQueryL(&queryArray, &lHash) <<"/" << queryArray.size() << "\n"<<endl;
+  cout << "We found " << searchByQueryL(&queryArray, &lHash) <<"/" << queryArray.size() << "\n"<<endl;
 
 
 
@@ -104,5 +105,5 @@ int main() {
     does a find for every query in the list of queries 
     adds time 
   */
-  
-}
+  return 0;
+};
