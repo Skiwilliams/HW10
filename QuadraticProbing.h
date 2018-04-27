@@ -26,15 +26,15 @@ template <typename HashedObj> class QuadraticHashTable {
 public:
   explicit QuadraticHashTable(int size = 101) : array(nextPrime(size)) {
     makeEmpty();
+    collisions = 0;
+    unsuccessfulProbes = 0;
+    elapsedTime = 0;
   }
 
   bool contains(const HashedObj &x) { return isActive(findPos(x)); }
 
   void makeEmpty() {
     currentSize = 0;
-    collisions = 0;
-    unsuccessfulProbes = 0;
-    elapsedTime = 0;
     for (auto &entry : array)
       entry.info = EMPTY;
   }
@@ -46,7 +46,6 @@ public:
       iter++;
     }
   }
-
 
   bool insert(const HashedObj &x) {
     clock_t start = clock();
