@@ -102,4 +102,5 @@ int main() {
     does a find for every query in the list of queries
     adds time
   */
-}
+  return 0;
+};
