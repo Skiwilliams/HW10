@@ -31,21 +31,24 @@ int main() {
 
   //print some stuff
   cout << "\nChaining "<<"\n";
-  cout << "ElapsedTime " << cHash.getElapsedTime() << "\n";
+  cout << "Elapsed Time " << cHash.getElapsedTime() << " micro seconds\n";
+  cout << "Average Time " << cHash.getElapsedTime()/cHash.getCurrentSize() << " micro seconds\n";  
   cout << "Collisions " << cHash.getCollisions() << "\n";
    //<<"#UnsuccessfulProbes " << cHash.getUnsuccessfulProbes() << "\n"
   cout << "We found " << searchByQueryC(&queryArray, &cHash)<< "/" << queryArray.size() << "\n"<<endl;
 
   cout << "\nQuadratic Probing "<<"\n";
-  cout << "ElapsedTime " << qHash.getElapsedTime() << "\n";
+  cout << "Elapsed Time " << qHash.getElapsedTime() << " micro seconds\n";
+  cout << "Average Time " << cHash.getElapsedTime()/cHash.getCurrentSize() << " micro seconds\n";    
   cout << "Collisions " << qHash.getCollisions() << "\n";
-  cout <<"#UnsuccessfulProbes " << qHash.getUnsuccessfulProbes() << "\n";
+  cout <<"#Unsuccessful Probes " << qHash.getUnsuccessfulProbes() << "\n";
   cout << "We found " << searchByQueryQ(&queryArray, &qHash)<< "/" << queryArray.size() << "\n"<<endl;
 
   cout << "\nLinear Probing "<<"\n";
-  cout << "ElapsedTime " << lHash.getElapsedTime() << "\n";
+  cout << "Elapsed Time " << lHash.getElapsedTime() << " micro seconds\n";
+  cout << "Average Time " << cHash.getElapsedTime()/cHash.getCurrentSize() << " micro seconds\n";    
   cout << "Collisions " << lHash.getCollisions() << "\n";
-  cout <<"#UnsuccessfulProbes " << lHash.getUnsuccessfulProbes() << "\n";
+  cout <<"#Unsuccessful Probes " << lHash.getUnsuccessfulProbes() << "\n";
   cout << "We found " << searchByQueryL(&queryArray, &lHash) <<"/" << queryArray.size() << "\n"<<endl;
 
 

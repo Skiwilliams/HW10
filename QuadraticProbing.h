@@ -126,6 +126,7 @@ private:
   int collisions;
   int unsuccessfulProbes;
   double elapsedTime;
+  double searchTime;
 
   bool isActive(int currentPos) const {
     return array[currentPos].info == ACTIVE;
