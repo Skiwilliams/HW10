@@ -2,61 +2,90 @@
  * Cullen Williams & Garrick Hutcheson
  * Aim1.h
  */
-
 #ifndef AIMHELPER_H
 #define AIMHELPER_H
 
+
+#include <cstdlib>
+#include <ctime>
+#include <fstream>
 #include <iostream>
-#include <vector>
+#include <istream>
+#include <ostream>
+#include <sstream>
 #include <string>
+#include <vector>
+
+#include "LinearProbing.h"
+#include "QuadraticProbing.h"
+#include "SeparateChaining.h"
+
 using namespace std;
 
-void getSomeWords(std::vector<string> *OhenryArray);
-void getSomeWordsQuery(std::vector<string> *OhenryArray);
-int searchByQueryQ(std::vector<std::string> *queryArray,
-                   QuadraticHashTable<string> *h1);
-int searchByQueryL(std::vector<std::string> *queryArray,
-                   LinearHashTable<string> *h1);
-
-int searchByQueryC(std::vector<std::string> *queryArray,
-                   ChainingHashTable<string> *h1);
 /*
   inserts words into DataArray no duplicate words are allowed
 */
-// void insertIntoChainingHT(DataArray);//call function
-// insertIntoChainingHT(DataArray)
+void fileToArray(string fileName, std::vector<std::string> *StringArray) {
+  std::string inname = "";
+  std::ifstream fin;
+  fin.open(fileName);
+  while (!fin.eof()) {
+    std::getline(fin, inname);
+    StringArray->push_back(inname);
+  }
+}
+
+int searchByQueryQ(std::vector<std::string> *queryArray, QuadraticHashTable<string> *h1) {
+  int queriesFound = 0;
+  for (std::vector<string>::iterator iter = queryArray->begin();
+       iter != queryArray->end(); iter++) {
+    queriesFound += h1->contains(iter->data());
+    iter++;
+  }
+  return queriesFound;
+}
+
+int searchByQueryL(std::vector<std::string> *queryArray,
+                   LinearHashTable<string> *h1) {
+  int queriesFound = 0;
+  for (std::vector<string>::iterator iter = queryArray->begin();
+       iter != queryArray->end(); iter++) {
+    queriesFound += h1->contains(iter->data());
+    iter++;
+  }
+  return queriesFound;
+}
+
+int searchByQueryC(std::vector<std::string> *queryArray,
+                   ChainingHashTable<string> *h1) {
+  int queriesFound = 0;
+  for (std::vector<string>::iterator iter = queryArray->begin();
+       iter != queryArray->end(); iter++) {
+    queriesFound += h1->contains(iter->data());
+    iter++;
+  }
+  return queriesFound;
+}
 
 /*
   private member holds the sum of times taken for all insertions
   function adds an insert time to private member
 */
-// void insertionTimerChainingHT();
+// void insertionTimerChainingHT() {}
 
 /*
   counts number of total collisions
   equal to times entering the findPos while loop
 */
-// void CollisionChainingHT();
+// void CollisionChainingHT() {}
 
 /*
   does a find for every query in the list of queries
   adds time
 */
-// void SearchChaingingHT(QueryArray);
+// void SearchChaingingHT() {}
 
+// private:
 // vector dataArray<string>;
-/*
-  int insertionTimerChainingHT;//holds the sum of times taken for all insertions
-  int CollisionCounterChainingHT;
-  int SearchTimerChainingHT;
-
-  int insertionTimerQProbeSimple;
-  int insertionTimerQProbePrefix;
-  int insertionTimerQProbeFull;
-
-  int CollisionCounterQProbeSimple;
-  int CollisionCounterQProbePrefix;
-  int CollisionCounterQProbeFull;
-
-*/
+// vector queryArray<string>;
 #endif

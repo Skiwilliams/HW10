@@ -1,8 +1,9 @@
 #include <iostream>
-#include "SeparateChaining.h"
-#include "QuadraticProbing.h"
-#include "LinearProbing.h"
+#include "HashHelpers.h"
 #include "AimHelper.h"
+#include "LinearProbing.h"
+#include "QuadraticProbing.h"
+#include "SeparateChaining.h"
 
 using namespace std;
 
@@ -13,15 +14,40 @@ int main() {
   */
   vector<string> dataArray;
   vector<string> queryArray;
-  string fileName = "OHenry.txt";
+
+  string fileName = "OHenry.txt";//line not used
+
   fileToArray("OHenry.txt", &dataArray);
   fileToArray("queries.txt", &queryArray);
-  SeperateHashTable<string> sHash;
+
+  ChainingHashTable<string> cHash;
   QuadraticHashTable<string> qHash;
   LinearHashTable<string> lHash;
-  sHash.insertArray(&dataArray);
+
+  cHash.insertArray(&dataArray);
   qHash.insertArray(&dataArray);
   lHash.insertArray(&dataArray);
+
+  //print some stuff
+  cout << "\nChaining "<<"\n";
+  cout << "ElapsedTime " << cHash.getElapsedTime() << "\n";
+  cout << "Collisions " << cHash.getCollisions() << "\n";
+   //<<"#UnsuccessfulProbes " << cHash.getUnsuccessfulProbes() << "\n"
+  //cout << "We found " << searchByQueryC(&queryArray, &cHash)<< "out of" << queryArray.size() << "\n"<<endl;
+
+  cout << "\nQuadratic Probing "<<"\n";
+  cout << "ElapsedTime " << qHash.getElapsedTime() << "\n";
+  cout << "Collisions " << qHash.getCollisions() << "\n";
+  cout <<"#UnsuccessfulProbes " << qHash.getUnsuccessfulProbes() << "\n";
+  cout << "We found " << searchByQueryQ(&queryArray, &qHash)<< "/" << queryArray.size() << "\n"<<endl;
+
+  cout << "\nLinear Probing "<<"\n";
+  cout << "ElapsedTime " << lHash.getElapsedTime() << "\n";
+  cout << "Collisions " << lHash.getCollisions() << "\n";
+  cout <<"#UnsuccessfulProbes " << lHash.getUnsuccessfulProbes() << "\n";
+  //cout << "We found " << searchByQueryL(&queryArray, &lHash) <<"/" << queryArray.size() << "\n"<<endl;
+
+
 
   /*
   for(vector<string>::iterator iter = dataArray.begin(); iter < dataArray.end(); iter++)
