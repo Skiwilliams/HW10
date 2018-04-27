@@ -144,7 +144,6 @@ private:
         currentPos -= array.size();
       unsuccessfulProbes++;
     }
-
     return currentPos;
   }
 

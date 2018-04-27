@@ -40,7 +40,6 @@ int searchByQueryQ(std::vector<std::string> *queryArray, QuadraticHashTable<stri
   for (std::vector<string>::iterator iter = queryArray->begin();
        iter != queryArray->end(); iter++) {
     queriesFound += h1->contains(iter->data());
-    iter++;
   }
   return queriesFound;
 }
@@ -51,7 +50,6 @@ int searchByQueryL(std::vector<std::string> *queryArray,
   for (std::vector<string>::iterator iter = queryArray->begin();
        iter != queryArray->end(); iter++) {
     queriesFound += h1->contains(iter->data());
-    iter++;
   }
   return queriesFound;
 }
@@ -62,7 +60,6 @@ int searchByQueryC(std::vector<std::string> *queryArray,
   for (std::vector<string>::iterator iter = queryArray->begin();
        iter != queryArray->end(); iter++) {
     queriesFound += h1->contains(iter->data());
-    iter++;
   }
   return queriesFound;
 }
