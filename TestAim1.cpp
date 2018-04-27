@@ -44,8 +44,8 @@ int main() {
   cout << "\nChaining " << "\n";
   cout << "ElapsedTime " << ChainingHT.getElapsedTime() << "\n";
   cout << "Collisions " << QuadraticProbingHT.getCollisions() << "\n";
-  cout << searchByQueryC(&queryArray, &ChainingHT) << "/"
-       << queryArray.size() << "\n"
+  cout << "Found" << searchByQueryC(&queryArray, &ChainingHT) << "/"
+       << queryArray.size() << " queries\n"
        << endl;
 
   //Quadratic Data
@@ -55,8 +55,8 @@ int main() {
   cout << "Collisions " << QuadraticProbingHT.getCollisions() << "\n";
   cout << "#UnsuccessfulProbes " << QuadraticProbingHT.getUnsuccessfulProbes()
        << "\n";
-  cout << "We found " << searchByQueryQ(&queryArray, &QuadraticProbingHT) << "/"
-       << queryArray.size() << "\n"
+  cout << "Found " << searchByQueryQ(&queryArray, &QuadraticProbingHT) << "/"
+       << queryArray.size() << " queries\n"
        << endl;
 
   //Linear Data
@@ -66,8 +66,8 @@ int main() {
   cout << "Collisions " << LinearProbingHT.getCollisions() << "\n";
   cout << "#UnsuccessfulProbes " << LinearProbingHT.getUnsuccessfulProbes()
        << "\n";
-  cout << "We found " << searchByQueryL(&queryArray, &LinearProbingHT) << "/"
-       << queryArray.size() << "\n"
+  cout << "Found " << searchByQueryL(&queryArray, &LinearProbingHT) << "/"
+       << queryArray.size() << " queries\n"
        << endl;
 
 
