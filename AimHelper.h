@@ -25,7 +25,7 @@ void fileToArray(string fileName, std::vector<std::string> *StringArray) {
   }
 }
 
-double searchByQueryQ(std::vector<std::string> *queryArray,
+double searchByQuery(std::vector<std::string> *queryArray,
                       QuadraticHashTable<string> *h1) {
   int queriesFound = 0;
   clock_t start = clock();
@@ -37,26 +37,5 @@ double searchByQueryQ(std::vector<std::string> *queryArray,
 }
 
 
-double searchByQueryL(std::vector<std::string> *queryArray,
-                      LinearHashTable<string> *h1) {
-  clock_t start = clock();
-  for (std::vector<string>::iterator iter = queryArray->begin();
-       iter != queryArray->end(); iter++) {
-    h1->contains(iter->data());
-  }
-  return clock() - start;
-}
-
-double searchByQueryC(std::vector<std::string> *queryArray,
-                      ChainingHashTable<string> *h1) {
-  int queriesFound = 0;
-  clock_t start = clock();
-
-  for (std::vector<string>::iterator iter = queryArray->begin();
-       iter != queryArray->end(); iter++) {
-    queriesFound += h1->contains(iter->data());
-  }
-  return clock() - start;
-}
 
 #endif
