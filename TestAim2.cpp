@@ -1,3 +1,8 @@
+/*
+ * Cullen Williams & Garrick Hutcheson
+ * Aim2
+ */
+
 #include "AimHelper.h"
 
 using namespace std;
@@ -14,7 +19,6 @@ int main() {
   // open queries.txt andload contents to vector of strings "queryArray"
   vector<string> queryArray;
   fileToArray("queries.txt", &queryArray);
-  cout << "Query Array Size: " << queryArray.size() << endl;
 
   // instantiate all three hashtables: SimpleHT, FullHT,
   // SimpleHT
@@ -22,67 +26,19 @@ int main() {
   QuadraticHashTable<string> PrefixHT(101, "prefix");
   QuadraticHashTable<string> FullHT(101, "full");
 
-   // insert into chaining HT
+
+  //inserting
   SimpleHT.insertArray(&dataArray);
-  cout << "SimpleHT Current size:" << SimpleHT.getCurrentSize() << endl;
-
-  // insert int quadratic HT
   PrefixHT.insertArray(&dataArray);
-  cout << "PrefixHT Current size:" << PrefixHT.getCurrentSize()
-       << endl;
-
   FullHT.insertArray(&dataArray);
-  cout << "FullHT Current size:" << FullHT.getCurrentSize()
-    << endl;
 
-
-  cout << "\nSimple Hashing "
-       << "\n";
-  cout << "Elapsed Time " << SimpleHT.getElapsedTime()
-       << " micro seconds\n";
-  cout << "Average Time "
-       << SimpleHT.getElapsedTime() /
-              SimpleHT.getCurrentSize()
-       << " micro seconds\n";
-  cout << "Collisions " << SimpleHT.getCollisions() << "\n";
-  cout << "#Unsuccessful Probes " << SimpleHT.getUnsuccessfulProbes()
-       << "\n";
+  //Querying and displaying stats
   searchTime = searchByQuery(&queryArray, &SimpleHT);
-  cout << "Total time " << searchTime
-       << "\nAverage time per search: " << searchTime / queryArray.size()
-       << "\n"
-       << endl;
-
-         // print some stuff
-  cout << "\nPrefix Hashing "
-       << "\n";
-  cout << "Elapsed Time " << PrefixHT.getElapsedTime() << " micro seconds\n";
-  cout << "Average Time "
-       << PrefixHT.getElapsedTime() / PrefixHT.getCurrentSize()
-       << " micro seconds\n";
-  cout << "Collisions " << PrefixHT.getCollisions() << "\n";
-  //<<"#UnsuccessfulProbes " << cHash.getUnsuccessfulProbes() << "\n"
+  displayStatistics("Simple Hash Algorithm", queryArray.size(), searchTime, &SimpleHT);
   searchTime = searchByQuery(&queryArray, &PrefixHT);
-  cout << "Total time " << searchTime
-       << "\nAverage time per search: " << searchTime / queryArray.size()
-       << "\n"
-       << endl;
-
- 
-  cout << "\n Full Hashing "
-       << "\n";
-  cout << "Elapsed Time " << FullHT.getElapsedTime()
-       << " micro seconds\n";
-  cout << "Average Time "
-       << FullHT.getElapsedTime() / FullHT.getCurrentSize()
-       << " micro seconds\n";
-  cout << "Collisions " << FullHT.getCollisions() << "\n";
-  cout << "#Unsuccessful Probes " << FullHT.getUnsuccessfulProbes()
-       << "\n";
+  displayStatistics("Prefix Hash Algorithm", queryArray.size(), searchTime, &PrefixHT);
   searchTime = searchByQuery(&queryArray, &FullHT);
-  cout << "Total time " << searchTime
-       << "\nAverage time per search: " << searchTime / queryArray.size()
-       << "\n"
-       << endl;
+  displayStatistics("Full Hashing Algorithm", queryArray.size(), searchTime, &FullHT);
+
   return 0;
 };

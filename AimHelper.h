@@ -1,6 +1,6 @@
 /*
  * Cullen Williams & Garrick Hutcheson
- * Aim1.h
+ * Aimhelper
  */
 #ifndef AIMHELPER_H
 #define AIMHELPER_H
@@ -36,6 +36,20 @@ double searchByQuery(std::vector<std::string> *queryArray,
   return clock() - start;
 }
 
-
+void displayStatistics(std::string name, int numQueries, double searchTime, QuadraticHashTable<std::string> *h1)
+{
+cout << "\n"<< name <<  "\n"
+       << "Elapsed Insertion Time:\t\t" << h1->getElapsedTime()
+       << " micro seconds\n"
+       << "Average Time Per Insertion:\t"
+       << h1->getElapsedTime() / h1->getCurrentSize()
+       << " micro seconds\n"
+       << "Collisions:\t\t\t" << h1->getCollisions()
+       << "\n#Unsuccessful Probes:\t\t"
+       << h1->getUnsuccessfulProbes()
+       << "\nTotal Search Time:\t\t" << searchTime << " micro seconds"
+       << "\nAverage Time per search: \t" << searchTime / numQueries
+       << " micro seconds" << endl;
+}
 
 #endif

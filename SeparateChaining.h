@@ -1,3 +1,8 @@
+/*
+ * Cullen Williams & Garrick Hutcheson
+ * Aim1.h
+ */
+
 #ifndef SEPARATE_CHAINING_H
 #define SEPARATE_CHAINING_H
 #include <algorithm>

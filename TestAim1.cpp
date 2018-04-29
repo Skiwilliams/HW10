@@ -1,3 +1,8 @@
+/*
+ * Cullen Williams & Garrick Hutcheson
+ * Aim1
+ */
+
 #include "AimHelper.h"
 
 
@@ -24,52 +29,21 @@ int main() {
   // insert into chaining HT
   ChainingHT.insertArray(&dataArray);
 
-  // insert int quadratic HT
+  // insert into quadratic HT
   QuadraticProbingHT.insertArray(&dataArray);
 
-
-  // print some stuff
-
-  //<<"#UnsuccessfulProbes " << cHash.getUnsuccessfulProbes() << "\n"
-  searchTime = searchByQuery(&queryArray, &ChainingHT);
-  cout << "Total time " << searchTime
-       << "\nAverage time per search: " << searchTime / queryArray.size()
-       << "\n"
-       << endl;
-
-  cout << "\nQuadratic Probing "
-       << "\n";
-  cout << "Elapsed Time " << QuadraticProbingHT.getElapsedTime()
-       << " micro seconds\n";
-  cout << "Average Time "
-       << QuadraticProbingHT.getElapsedTime() /
-              QuadraticProbingHT.getCurrentSize()
-       << " micro seconds\n";
-  cout << "Collisions " << QuadraticProbingHT.getCollisions() << "\n";
-  cout << "#Unsuccessful Probes " << QuadraticProbingHT.getUnsuccessfulProbes()
-       << "\n";
-  searchTime = searchByQuery(&queryArray, &QuadraticProbingHT);
-  cout << "Total time " << searchTime
-       << "\nAverage time per search: " << searchTime / queryArray.size()
-       << "\n"
-       << endl;
-
   LinearProbingHT.insertArray(&dataArray);
-  cout << "\nLinear Probing "
-       << "\n";
-  cout << "Elapsed Time " << LinearProbingHT.getElapsedTime()
-       << " micro seconds\n";
-  cout << "Average Time "
-       << LinearProbingHT.getElapsedTime() / LinearProbingHT.getCurrentSize()
-       << " micro seconds\n";
-  cout << "Collisions " << LinearProbingHT.getCollisions() << "\n";
-  cout << "#Unsuccessful Probes " << LinearProbingHT.getUnsuccessfulProbes()
-       << "\n";
+
+  searchTime = searchByQuery(&queryArray, &QuadraticProbingHT);
+  displayStatistics("Quadratic Probing HashTable", queryArray.size(), searchTime, &QuadraticProbingHT);
+
+  searchTime = searchByQuery(&queryArray, &ChainingHT);
+  displayStatistics("Chaining HashTable", queryArray.size(), searchTime, &ChainingHT);
+
   searchTime = searchByQuery(&queryArray, &LinearProbingHT);
-  cout << "Total time " << searchTime
-       << "\nAverage time per search: " << searchTime / queryArray.size()
-       << "\n"
-       << endl;
+  displayStatistics("Linear Probing HashTable", queryArray.size(), searchTime, &LinearProbingHT);
+
+
 
   return 0;
 };
