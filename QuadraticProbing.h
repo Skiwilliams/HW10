@@ -1,15 +1,17 @@
 #ifndef QUADRATIC_PROBING_H
 #define QUADRATIC_PROBING_H
 
+#include "Hash.h"
+#include "HashHelpers.h"
 #include <algorithm>
 #include <ctime>
-#include <functional>
 #include <iostream>
 #include <string>
 #include <vector>
-#include "HashHelpers.h"
-using namespace std;
-
+using std::clock_t;
+using std::string;
+using std::vector;
+using namespace StringHash;
 
 // QuadraticProbing Hash table class
 //
@@ -24,11 +26,13 @@ using namespace std;
 
 template <typename HashedObj> class QuadraticHashTable {
 public:
-  explicit QuadraticHashTable(int size = 101) : array(nextPrime(size)) {
+  explicit QuadraticHashTable(int size = 101, string hashFunction = "standard")
+      : array(nextPrime(size)) {
     makeEmpty();
     collisions = 0;
     unsuccessfulProbes = 0;
     elapsedTime = 0;
+    setHashFunction(hashFunction);
   }
 
   bool contains(const HashedObj &x) { return isActive(findPos(x)); }
@@ -107,6 +111,29 @@ public:
 
   int getUnsuccessfulProbes() { return unsuccessfulProbes; }
 
+  void setHashFunction(string hashfunction) {
+      if(hashfunction == "simple")
+      {
+        SimpleHash sh;
+        hf = sh;
+      }
+      else if(hashfunction == "prefix")
+      {
+        PrefixHash ph;
+        hf = ph;
+      }
+      else if (hashfunction == "full")
+      {
+        FullHash fh;
+        hf = fh;
+      }
+      else
+      {
+        Hash h;
+        hf = h;
+      }
+  }
+
   enum EntryType { ACTIVE, EMPTY, DELETED };
 
 private:
@@ -126,6 +153,7 @@ private:
   int collisions;
   int unsuccessfulProbes;
   double elapsedTime;
+  Hash hf;
 
   bool isActive(int currentPos) const {
     return array[currentPos].info == ACTIVE;
@@ -162,10 +190,7 @@ private:
         insert(std::move(entry.element));
   }
 
-  size_t myhash(const HashedObj &x) const {
-    static hash<HashedObj> hf;
-    return hf(x) % array.size();
-  }
+  size_t myhash(const HashedObj &x) const { return hf(x) % array.size(); }
 };
 
 #endif

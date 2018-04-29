@@ -3,12 +3,13 @@
 
 #include <algorithm>
 #include <ctime>
-#include <functional>
 #include <list>
 #include <string>
 #include <vector>
 #include "HashHelpers.h"
+#include "Hash.h"
 using namespace std;
+using namespace StringHash;
 
 
 // SeparateChaining Hash table class
@@ -123,7 +124,7 @@ private:
   }
 
   size_t myhash(const HashedObj &x) const {
-    static hash<HashedObj> hf;
+    static Hash hf;
     return hf(x) % theLists.size();
   }
 };

@@ -17,9 +17,6 @@
 
 #include "LinearProbing.h"
 #include "QuadraticProbing.h"
-#include "QuadraticProbingFull.h"
-#include "QuadraticProbingPrefix.h"
-#include "QuadraticProbingSimple.h"
 #include "SeparateChaining.h"
 
 using namespace std;
@@ -48,38 +45,6 @@ double searchByQueryQ(std::vector<std::string> *queryArray,
   return clock() - start;
 }
 
-double searchByQueryQS(std::vector<std::string> *queryArray,
-                       QuadraticHashTableSimple<string> *h1) {
-  int queriesFound = 0;
-  clock_t start = clock();
-  for (std::vector<string>::iterator iter = queryArray->begin();
-       iter != queryArray->end(); iter++) {
-    queriesFound += h1->contains(iter->data());
-  }
-  return clock() - start;
-}
-
-double searchByQueryQP(std::vector<std::string> *queryArray,
-                       QuadraticHashTablePrefix<string> *h1) {
-  int queriesFound = 0;
-  clock_t start = clock();
-  for (std::vector<string>::iterator iter = queryArray->begin();
-       iter != queryArray->end(); iter++) {
-    queriesFound += h1->contains(iter->data());
-  }
-  return clock() - start;
-}
-
-double searchByQueryQF(std::vector<std::string> *queryArray,
-                       QuadraticHashTableFull<string> *h1) {
-  int queriesFound = 0;
-  clock_t start = clock();
-  for (std::vector<string>::iterator iter = queryArray->begin();
-       iter != queryArray->end(); iter++) {
-    queriesFound += h1->contains(iter->data());
-  }
-  return clock() - start;
-}
 
 double searchByQueryL(std::vector<std::string> *queryArray,
                       LinearHashTable<string> *h1) {
@@ -103,25 +68,4 @@ double searchByQueryC(std::vector<std::string> *queryArray,
   return clock() - start;
 }
 
-/*
-  private member holds the sum of times taken for all insertions
-  function adds an insert time to private member
-*/
-// void insertionTimerChainingHT() {}
-
-/*
-  counts number of total collisions
-  equal to times entering the findPos while loop
-*/
-// void CollisionChainingHT() {}
-
-/*
-  does a find for every query in the list of queries
-  adds time
-*/
-// void SearchChaingingHT() {}
-
-// private:
-// vector dataArray<string>;
-// vector queryArray<string>;
 #endif

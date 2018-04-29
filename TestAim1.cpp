@@ -1,8 +1,4 @@
 #include "AimHelper.h"
-#include "HashHelpers.h"
-#include "LinearProbing.h"
-#include "QuadraticProbing.h"
-#include "SeparateChaining.h"
 #include <iostream>
 
 using namespace std;
