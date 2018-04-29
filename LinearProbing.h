@@ -3,12 +3,13 @@
 
 #include <algorithm>
 #include <ctime>
-#include <functional>
 #include <iostream>
 #include <string>
 #include <utility>
 #include <vector>
 #include "HashHelpers.h"
+#include "Hash.h"
+using StringHash::Hash;
 using namespace std;
 
 bool isPrime(int n);
@@ -167,7 +168,7 @@ private:
   }
 
   size_t myhash(const HashedObj &x) const {
-    static hash<HashedObj> hf;
+    static Hash hf;
     return hf(x) % array.size();
   }
 };

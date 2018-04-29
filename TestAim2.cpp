@@ -1,8 +1,5 @@
 #include "AimHelper.h"
-#include "HashHelpers.h"
-#include "QuadraticProbingFull.h"
-#include "QuadraticProbingPrefix.h"
-#include "QuadraticProbingSimple.h"
+#include "QuadraticProbing.h"
 
 #include <iostream>
 
@@ -12,6 +9,7 @@ int main() {
 
   // open input file Ohenry.txt and load contents to vector of strings -
   // dataArray
+  double searchTime = 0;
   vector<string> dataArray;
   fileToArray("OHenry.txt", &dataArray);
   cout << "Data Array Size: " << dataArray.size() << endl;
@@ -19,75 +17,72 @@ int main() {
   // open queries.txt andload contents to vector of strings "queryArray"
   vector<string> queryArray;
   fileToArray("queries.txt", &queryArray);
-  cout << "Data Array Size: " << queryArray.size() << endl;
+  cout << "Query Array Size: " << queryArray.size() << endl;
 
-  // instantiate all three hashtables: ChainingHT, linearProbingHT,
-  // QuadraticProbingHT
-  QuadraticHashTableSimple<string> QuadraticProbingSimpleHT;
-  QuadraticHashTablePrefix<string> QuadraticProbingPrefixHT;
-  QuadraticHashTableFull<string> QuadraticProbingFullHT;
-  double searchTime;
+  // instantiate all three hashtables: SimpleHT, FullHT,
+  // SimpleHT
+  QuadraticHashTable<string> SimpleHT(101, "simple");
+  QuadraticHashTable<string> PrefixHT(101, "prefix");
+  QuadraticHashTable<string> FullHT(101, "full");
+
+   // insert into chaining HT
+  SimpleHT.insertArray(&dataArray);
+  cout << "SimpleHT Current size:" << SimpleHT.getCurrentSize() << endl;
 
   // insert int quadratic HT
-  QuadraticProbingSimpleHT.insertArray(&dataArray);
-  cout << "\nQuadraticSimpleHT Current size:"
-       << QuadraticProbingSimpleHT.getCurrentSize() << endl;
+  PrefixHT.insertArray(&dataArray);
+  cout << "PrefixHT Current size:" << PrefixHT.getCurrentSize()
+       << endl;
 
-  cout << "Quadratic Probing Simple"
-       << "\n"
-       << "Elapsed Time " << QuadraticProbingSimpleHT.getElapsedTime()
-       << " micro seconds\n"
-       << "Average Time "
-       << QuadraticProbingSimpleHT.getElapsedTime() /
-              QuadraticProbingSimpleHT.getCurrentSize()
-       << " micro seconds\n"
-       << "Collisions " << QuadraticProbingSimpleHT.getCollisions() << "\n"
-       << "#Unsuccessful Probes "
-       << QuadraticProbingSimpleHT.getUnsuccessfulProbes() << "\n";
-  searchTime = searchByQueryQS(&queryArray, &QuadraticProbingSimpleHT);
+  FullHT.insertArray(&dataArray);
+  cout << "FullHT Current size:" << FullHT.getCurrentSize()
+    << endl;
+
+
+  cout << "\nSimple Hashing "
+       << "\n";
+  cout << "Elapsed Time " << SimpleHT.getElapsedTime()
+       << " micro seconds\n";
+  cout << "Average Time "
+       << SimpleHT.getElapsedTime() /
+              SimpleHT.getCurrentSize()
+       << " micro seconds\n";
+  cout << "Collisions " << SimpleHT.getCollisions() << "\n";
+  cout << "#Unsuccessful Probes " << SimpleHT.getUnsuccessfulProbes()
+       << "\n";
+  searchTime = searchByQueryQ(&queryArray, &SimpleHT);
   cout << "Total time " << searchTime
        << "\nAverage time per search: " << searchTime / queryArray.size()
        << "\n"
        << endl;
 
-  QuadraticProbingPrefixHT.insertArray(&dataArray);
-  cout << "\nQuadraticPrefixHT Current size:"
-       << QuadraticProbingPrefixHT.getCurrentSize() << endl;
-
-  cout << "Quadratic Probing Prefix"
-       << "\n"
-       << "Elapsed Time " << QuadraticProbingPrefixHT.getElapsedTime()
-       << " micro seconds\n"
-       << "Average Time "
-       << QuadraticProbingPrefixHT.getElapsedTime() /
-              QuadraticProbingPrefixHT.getCurrentSize()
-       << " micro seconds\n"
-       << "Collisions " << QuadraticProbingPrefixHT.getCollisions() << "\n"
-       << "#Unsuccessful Probes "
-       << QuadraticProbingPrefixHT.getUnsuccessfulProbes() << "\n";
-  searchTime = searchByQueryQP(&queryArray, &QuadraticProbingPrefixHT);
-  cout << "Total search time " << searchTime
+         // print some stuff
+  cout << "\nPrefix Hashing "
+       << "\n";
+  cout << "Elapsed Time " << PrefixHT.getElapsedTime() << " micro seconds\n";
+  cout << "Average Time "
+       << PrefixHT.getElapsedTime() / PrefixHT.getCurrentSize()
+       << " micro seconds\n";
+  cout << "Collisions " << PrefixHT.getCollisions() << "\n";
+  //<<"#UnsuccessfulProbes " << cHash.getUnsuccessfulProbes() << "\n"
+  searchTime = searchByQueryQ(&queryArray, &PrefixHT);
+  cout << "Total time " << searchTime
        << "\nAverage time per search: " << searchTime / queryArray.size()
        << "\n"
        << endl;
 
-  // Simple
-  QuadraticProbingFullHT.insertArray(&dataArray);
-  cout << "\nQuadraticFullHT Current size:"
-       << QuadraticProbingFullHT.getCurrentSize() << endl;
-
-  cout << "Quadratic Probing Full"
-       << "\n"
-       << "Elapsed Time " << QuadraticProbingFullHT.getElapsedTime()
-       << " micro seconds\n"
-       << "Average Time "
-       << QuadraticProbingFullHT.getElapsedTime() /
-              QuadraticProbingFullHT.getCurrentSize()
-       << " micro seconds\n"
-       << "Collisions " << QuadraticProbingFullHT.getCollisions() << "\n"
-       << "#Unsuccessful Probes "
-       << QuadraticProbingFullHT.getUnsuccessfulProbes() << "\n";
-  searchTime = searchByQueryQF(&queryArray, &QuadraticProbingFullHT);
+ 
+  cout << "\n Full Hashing "
+       << "\n";
+  cout << "Elapsed Time " << FullHT.getElapsedTime()
+       << " micro seconds\n";
+  cout << "Average Time "
+       << FullHT.getElapsedTime() / FullHT.getCurrentSize()
+       << " micro seconds\n";
+  cout << "Collisions " << FullHT.getCollisions() << "\n";
+  cout << "#Unsuccessful Probes " << FullHT.getUnsuccessfulProbes()
+       << "\n";
+  searchTime = searchByQueryQ(&queryArray, &FullHT);
   cout << "Total time " << searchTime
        << "\nAverage time per search: " << searchTime / queryArray.size()
        << "\n"

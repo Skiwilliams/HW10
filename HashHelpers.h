@@ -4,8 +4,4 @@
 bool isPrime( int n );
 int nextPrime( int n );
 
-
-
-
-
 #endif
