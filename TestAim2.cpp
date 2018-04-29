@@ -8,20 +8,17 @@
 using namespace std;
 
 int main() {
-
-  // open input file Ohenry.txt and load contents to vector of strings -
-  // dataArray
   double searchTime = 0;
+
+  // open input file Ohenry.txt and load contents to vector of strings 
   vector<string> dataArray;
   fileToArray("OHenry.txt", &dataArray);
-  cout << "Data Array Size: " << dataArray.size() << endl;
 
   // open queries.txt andload contents to vector of strings "queryArray"
   vector<string> queryArray;
   fileToArray("queries.txt", &queryArray);
 
   // instantiate all three hashtables: SimpleHT, FullHT,
-  // SimpleHT
   QuadraticHashTable<string> SimpleHT(101, "simple");
   QuadraticHashTable<string> PrefixHT(101, "prefix");
   QuadraticHashTable<string> FullHT(101, "full");
