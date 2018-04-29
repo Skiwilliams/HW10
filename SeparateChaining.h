@@ -1,15 +1,13 @@
 #ifndef SEPARATE_CHAINING_H
 #define SEPARATE_CHAINING_H
-
 #include <algorithm>
 #include <ctime>
 #include <list>
 #include <string>
 #include <vector>
-#include "HashHelpers.h"
 #include "Hash.h"
 using namespace std;
-using namespace StringHash;
+using StringHash::Hash;
 
 
 // SeparateChaining Hash table class

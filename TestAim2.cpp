@@ -1,7 +1,4 @@
 #include "AimHelper.h"
-#include "QuadraticProbing.h"
-
-#include <iostream>
 
 using namespace std;
 

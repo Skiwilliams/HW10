@@ -1,19 +1,14 @@
 #ifndef LINEAR_PROBING_H
 #define LINEAR_PROBING_H
 
-#include <algorithm>
 #include <ctime>
 #include <iostream>
 #include <string>
-#include <utility>
 #include <vector>
-#include "HashHelpers.h"
 #include "Hash.h"
 using StringHash::Hash;
 using namespace std;
 
-bool isPrime(int n);
-int nextPrime(int n);
 
 // QuadraticProbing Hash table class
 //
