@@ -114,23 +114,19 @@ public:
   void setHashFunction(string hashfunction) {
       if(hashfunction == "simple")
       {
-        SimpleHash sh;
-        hf = sh;
+        hf = new SimpleHash;
       }
       else if(hashfunction == "prefix")
       {
-        PrefixHash ph;
-        hf = ph;
+        hf = new PrefixHash;
       }
       else if (hashfunction == "full")
       {
-        FullHash fh;
-        hf = fh;
+        hf = new FullHash;
       }
       else
       {
-        Hash h;
-        hf = h;
+        hf = new Hash;
       }
   }
 
@@ -153,7 +149,7 @@ private:
   int collisions;
   int unsuccessfulProbes;
   double elapsedTime;
-  Hash hf;
+  Hash* hf;
 
   bool isActive(int currentPos) const {
     return array[currentPos].info == ACTIVE;
@@ -190,7 +186,7 @@ private:
         insert(std::move(entry.element));
   }
 
-  size_t myhash(const HashedObj &x) const { return hf(x) % array.size(); }
+  size_t myhash(const HashedObj &x) const { return (*hf)(x) % array.size(); }
 };
 
 #endif
