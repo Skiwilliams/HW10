@@ -5,10 +5,11 @@
 #ifndef AIMHELPER_H
 #define AIMHELPER_H
 
-#include <fstream>
 #include "LinearProbing.h"
 #include "QuadraticProbing.h"
 #include "SeparateChaining.h"
+
+#include <fstream>
 
 using namespace std;
 
@@ -25,6 +26,7 @@ void fileToArray(string fileName, std::vector<std::string> *StringArray) {
   }
 }
 
+/*searches QuadradicHashTable for each entry in queryArray*/
 double searchByQueryQ(std::vector<std::string> *queryArray,
                       QuadraticHashTable<string> *h1) {
   int queriesFound = 0;
@@ -36,7 +38,7 @@ double searchByQueryQ(std::vector<std::string> *queryArray,
   return clock() - start;
 }
 
-
+/*searches LinearHashTable for each entry in queryArray*/
 double searchByQueryL(std::vector<std::string> *queryArray,
                       LinearHashTable<string> *h1) {
   clock_t start = clock();
@@ -47,6 +49,7 @@ double searchByQueryL(std::vector<std::string> *queryArray,
   return clock() - start;
 }
 
+/*searches chainingHashtable for each entry in queryArray*/
 double searchByQueryC(std::vector<std::string> *queryArray,
                       ChainingHashTable<string> *h1) {
   int queriesFound = 0;
