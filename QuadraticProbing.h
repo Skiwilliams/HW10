@@ -1,3 +1,8 @@
+/*
+ * Cullen Williams & Garrick Hutcheson
+ * Aim1.h
+ */
+
 #ifndef QUADRATIC_PROBING_H
 #define QUADRATIC_PROBING_H
 #include "Hash.h"
