@@ -20,11 +20,15 @@ using StringHash::Hash;
 // bool contains( x )     --> Return true if x is present
 // void makeEmpty( )      --> Remove all items
 
-template <typename HashedObj> class ChainingHashTable {
+template <typename HashedObj> class ChainingHashTable: public QuadraticHashTable<HashedObj> {
 public:
-  explicit ChainingHashTable(int size = 101) : currentSize{0} {
-    collisions = 0;
-    elapsedTime = 0;
+      using QuadraticHashTable<HashedObj>::myhash;
+      using QuadraticHashTable<HashedObj>::array;
+      using QuadraticHashTable<HashedObj>::collisions;
+      using QuadraticHashTable<HashedObj>::unsuccessfulProbes;
+      using QuadraticHashTable<HashedObj>::elapsedTime;
+      using QuadraticHashTable<HashedObj>::currentSize;
+  explicit ChainingHashTable(int size = 101) {
     theLists.resize(101);
   }
 
@@ -94,18 +98,8 @@ public:
     return true;
   }
 
-  int getCurrentSize() { return currentSize; }
-
-  int getElapsedTime() { return elapsedTime; }
-
-  int getCollisions() { return collisions; }
-
 private:
   vector<list<HashedObj>> theLists; // The array of Lists
-  int currentSize;
-  int collisions;
-  double elapsedTime;
-
   void rehash() {
     vector<list<HashedObj>> oldLists = theLists;
 
@@ -121,10 +115,6 @@ private:
         insert(std::move(x));
   }
 
-  size_t myhash(const HashedObj &x) const {
-    static Hash hf;
-    return hf(x) % theLists.size();
-  }
 };
 
 #endif

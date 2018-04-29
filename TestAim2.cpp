@@ -47,7 +47,7 @@ int main() {
   cout << "Collisions " << SimpleHT.getCollisions() << "\n";
   cout << "#Unsuccessful Probes " << SimpleHT.getUnsuccessfulProbes()
        << "\n";
-  searchTime = searchByQueryQ(&queryArray, &SimpleHT);
+  searchTime = searchByQuery(&queryArray, &SimpleHT);
   cout << "Total time " << searchTime
        << "\nAverage time per search: " << searchTime / queryArray.size()
        << "\n"
@@ -62,7 +62,7 @@ int main() {
        << " micro seconds\n";
   cout << "Collisions " << PrefixHT.getCollisions() << "\n";
   //<<"#UnsuccessfulProbes " << cHash.getUnsuccessfulProbes() << "\n"
-  searchTime = searchByQueryQ(&queryArray, &PrefixHT);
+  searchTime = searchByQuery(&queryArray, &PrefixHT);
   cout << "Total time " << searchTime
        << "\nAverage time per search: " << searchTime / queryArray.size()
        << "\n"
@@ -79,7 +79,7 @@ int main() {
   cout << "Collisions " << FullHT.getCollisions() << "\n";
   cout << "#Unsuccessful Probes " << FullHT.getUnsuccessfulProbes()
        << "\n";
-  searchTime = searchByQueryQ(&queryArray, &FullHT);
+  searchTime = searchByQuery(&queryArray, &FullHT);
   cout << "Total time " << searchTime
        << "\nAverage time per search: " << searchTime / queryArray.size()
        << "\n"
