@@ -4,85 +4,66 @@ using namespace std;
 
 int main() {
 
-  // open input file Ohenry.txt and load contents to vector of strings -
-  // dataArray
   double searchTime = 0;
-  vector<string> dataArray;
-  fileToArray("OHenry.txt", &dataArray);
-  cout << "Data Array Size: " << dataArray.size() << endl;
 
-  // open queries.txt andload contents to vector of strings "queryArray"
+  // creates a data and query arrays
+  vector<string> dataArray;
   vector<string> queryArray;
+
+  // loads data into data and query array
+  fileToArray("OHenry.txt", &dataArray);
   fileToArray("queries.txt", &queryArray);
-  cout << "Query Array Size: " << queryArray.size() << endl;
 
   // instantiate all three hashtables: SimpleHT, FullHT,
-  // SimpleHT
   QuadraticHashTable<string> SimpleHT(101, "simple");
   QuadraticHashTable<string> PrefixHT(101, "prefix");
   QuadraticHashTable<string> FullHT(101, "full");
 
-   // insert into chaining HT
+  // inserts into Hash Tables
   SimpleHT.insertArray(&dataArray);
-  cout << "SimpleHT Current size:" << SimpleHT.getCurrentSize() << endl;
-
-  // insert int quadratic HT
   PrefixHT.insertArray(&dataArray);
-  cout << "PrefixHT Current size:" << PrefixHT.getCurrentSize()
-       << endl;
-
   FullHT.insertArray(&dataArray);
-  cout << "FullHT Current size:" << FullHT.getCurrentSize()
-    << endl;
 
-
-  cout << "\nSimple Hashing "
-       << "\n";
-  cout << "Elapsed Time " << SimpleHT.getElapsedTime()
-       << " micro seconds\n";
-  cout << "Average Time "
-       << SimpleHT.getElapsedTime() /
-              SimpleHT.getCurrentSize()
-       << " micro seconds\n";
-  cout << "Collisions " << SimpleHT.getCollisions() << "\n";
-  cout << "#Unsuccessful Probes " << SimpleHT.getUnsuccessfulProbes()
-       << "\n";
+  /* simple hashing results */
   searchTime = searchByQueryQ(&queryArray, &SimpleHT);
-  cout << "Total time " << searchTime
+  cout << "\nSimple Hashing\n"
+       << "Elapsed Time:            " << SimpleHT.getElapsedTime()
+       << " micro seconds\n"
+       << "Average Time:            "
+       << SimpleHT.getElapsedTime() / SimpleHT.getCurrentSize()
+       << " micro seconds"
+       << "\nCollisions:              " << SimpleHT.getCollisions()
+       << "\n#Unsuccessful Probes:    " << SimpleHT.getUnsuccessfulProbes()
+       << "\n#Total Search Time:       " << searchTime
        << "\nAverage time per search: " << searchTime / queryArray.size()
-       << "\n"
        << endl;
 
-         // print some stuff
-  cout << "\nPrefix Hashing "
-       << "\n";
-  cout << "Elapsed Time " << PrefixHT.getElapsedTime() << " micro seconds\n";
-  cout << "Average Time "
-       << PrefixHT.getElapsedTime() / PrefixHT.getCurrentSize()
-       << " micro seconds\n";
-  cout << "Collisions " << PrefixHT.getCollisions() << "\n";
-  //<<"#UnsuccessfulProbes " << cHash.getUnsuccessfulProbes() << "\n"
+  /* prefix hashing results */
   searchTime = searchByQueryQ(&queryArray, &PrefixHT);
-  cout << "Total time " << searchTime
+  cout << "\nPrefix Hashing\n"
+       << "Elapsed Time:            " << PrefixHT.getElapsedTime()
+       << " micro seconds\n"
+       << "Average Time:            "
+       << PrefixHT.getElapsedTime() / PrefixHT.getCurrentSize()
+       << " micro seconds"
+       << "\nCollisions:              " << PrefixHT.getCollisions()
+       << "\n#Unsuccessful Probes:    " << PrefixHT.getUnsuccessfulProbes()
+       << "\n#Total Search Time:       " << searchTime
        << "\nAverage time per search: " << searchTime / queryArray.size()
-       << "\n"
        << endl;
 
- 
-  cout << "\n Full Hashing "
-       << "\n";
-  cout << "Elapsed Time " << FullHT.getElapsedTime()
-       << " micro seconds\n";
-  cout << "Average Time "
-       << FullHT.getElapsedTime() / FullHT.getCurrentSize()
-       << " micro seconds\n";
-  cout << "Collisions " << FullHT.getCollisions() << "\n";
-  cout << "#Unsuccessful Probes " << FullHT.getUnsuccessfulProbes()
-       << "\n";
+  /* full hashing results */
   searchTime = searchByQueryQ(&queryArray, &FullHT);
-  cout << "Total time " << searchTime
+  cout << "\nFull Hashing\n"
+       << "Elapsed Time:            " << FullHT.getElapsedTime()
+       << " micro seconds\n"
+       << "Average Time:            "
+       << FullHT.getElapsedTime() / FullHT.getCurrentSize()
+       << " micro seconds\n"
+       << "Collisions               " << FullHT.getCollisions()
+       << "\n#Unsuccessful Probes:    " << FullHT.getUnsuccessfulProbes()
+       << "\n#Total Search Time:       " << searchTime << " micro seconds"
        << "\nAverage time per search: " << searchTime / queryArray.size()
-       << "\n"
-       << endl;
+       << " micro seconds" << endl;
   return 0;
 };
