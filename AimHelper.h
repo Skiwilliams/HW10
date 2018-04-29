@@ -5,16 +5,7 @@
 #ifndef AIMHELPER_H
 #define AIMHELPER_H
 
-#include <cstdlib>
-#include <ctime>
 #include <fstream>
-#include <iostream>
-#include <istream>
-#include <ostream>
-#include <sstream>
-#include <string>
-#include <vector>
-
 #include "LinearProbing.h"
 #include "QuadraticProbing.h"
 #include "SeparateChaining.h"

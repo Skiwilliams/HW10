@@ -2,8 +2,6 @@
 #define QUADRATIC_PROBING_H
 
 #include "Hash.h"
-#include "HashHelpers.h"
-#include <algorithm>
 #include <ctime>
 #include <iostream>
 #include <string>
