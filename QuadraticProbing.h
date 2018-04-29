@@ -32,7 +32,13 @@ public:
     collisions = 0;
     unsuccessfulProbes = 0;
     elapsedTime = 0;
+    hf = NULL;
     setHashFunction(hashFunction);
+  }
+
+  ~QuadraticHashTable()
+  {
+    delete hf;
   }
 
   bool contains(const HashedObj &x) { return isActive(findPos(x)); }
@@ -112,6 +118,12 @@ public:
   int getUnsuccessfulProbes() { return unsuccessfulProbes; }
 
   void setHashFunction(string hashfunction) {
+      if(hf != NULL)
+      { 
+        Hash* erase = hf;
+        delete erase;
+      }
+
       if(hashfunction == "simple")
       {
         hf = new SimpleHash;
